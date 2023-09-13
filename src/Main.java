@@ -1,17 +1,31 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+            printBonusDatesBetween(2010, 2015);
+            printBonusDatesBetween(1900, 1900);
+    }
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+    public static void printBonusDatesBetween(int fromYear, int toYear) {
+        if (fromYear >= toYear)
+            return;
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        LocalDate fromDate = LocalDate.parse(fromYear+"-01-01");
+        LocalDate toDate = LocalDate.parse(toYear+"-01-01");
+
+        while (!fromDate.equals(toDate)) {
+            String fromDateString = fromDate.toString().replace("-", "");
+            int fromDateStringLength = fromDateString.length();
+
+            for (var i = 0; i < fromDateStringLength / 2; i++) {
+                if (fromDateString.charAt(i) == fromDateString.charAt(fromDateStringLength - (i + 1))) {
+                    if (i + 1 == fromDateStringLength / 2)
+                        System.out.println(fromDate);
+                }
+                else
+                    break;
+            }
+            fromDate = fromDate.plusDays(1);
         }
     }
 }
